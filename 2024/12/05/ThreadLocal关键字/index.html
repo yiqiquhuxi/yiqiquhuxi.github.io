@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ThreadLocal关键字 | neoooo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ThreadLocal关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreadLocal关键字">
+<meta property="og:url" content="http://example.com/2024/12/05/ThreadLocal%E5%85%B3%E9%94%AE%E5%AD%97/index.html">
+<meta property="og:site_name" content="neoooo">
+<meta property="og:description" content="ThreadLocal关键字">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-05T09:21:14.039Z">
+<meta property="article:author" content="neoooo">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="neoooo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">neoooo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ThreadLocal关键字" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/ThreadLocal%E5%85%B3%E9%94%AE%E5%AD%97/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T16:00:00.000Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ThreadLocal关键字
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ThreadLocal关键字</p>
+<span id="more"></span>
+
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>ThreadLocal简介</li>
+<li>ThreadLocal的使用</li>
+<li>ThreadLocal的原理</li>
+<li>ThreadLocal内存泄漏问题</li>
+<li>ThreadLocal hash冲突问题</li>
+<li>异步线程中使用ThreadLocal</li>
+<li>为什么threadlocal 不能使用强引用</li>
+</ul>
+<h1 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h1><p><code>ThreadLocal</code>是Java中一个很酷的工具类，可以用于多线程并发编程。它提供了线程局部变量，这意味着每个线程所访问的变量都是独立的，互不干扰，不会出现线程安全问题，还能提高并发性能。</p>
+<p>在Java中，每个线程都有一个自己的线程栈，线程栈中的变量称为线程本地变量（Thread Local Variable）。不同线程之间的线程本地变量互不干扰。<code>ThreadLocal</code>就是利用了这种机制来实现线程局部变量。通过<code>ThreadLocal</code>创建的变量，每个线程都有自己独立的拷贝，互不干扰。</p>
+<p><code>ThreadLocal</code>并不是用来解决共享资源访问问题的。虽然它也能实现多线程间的数据隔离，但与锁相比，它显得非常轻量级，没有任何锁的粒度和开销。因此，<code>ThreadLocal</code>一般用来解决线程安全问题，提高并发性能，而不是用来解决共享资源访问问题。</p>
+<h1 id="ThreadLocal的使用"><a href="#ThreadLocal的使用" class="headerlink" title="ThreadLocal的使用"></a>ThreadLocal的使用</h1><p><code>ThreadLocal</code>的使用非常简单，它只提供了三个方法：</p>
+<ul>
+<li><code>public T get()</code>：获取当前线程的变量副本。</li>
+<li><code>public void set(T value)</code>：设置当前线程的变量副本。</li>
+<li><code>public void remove()</code>：删除当前线程的变量副本。</li>
+</ul>
+<p>下面是一个使用<code>ThreadLocal</code>的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadLocalTest &#123;</span><br><span class="line">    private static final ThreadLocal&lt;Integer&gt; threadLocal = new ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        threadLocal.set(1);</span><br><span class="line">        System.out.println(&quot;主线程中的变量值：&quot; + threadLocal.get());</span><br><span class="line"></span><br><span class="line">        new Thread(() -&gt; &#123;</span><br><span class="line">            threadLocal.set(2);</span><br><span class="line">            System.out.println(&quot;子线程中的变量值：&quot; + threadLocal.get());</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(1000);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;主线程中的变量值：&quot; + threadLocal.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上述代码中，主线程和子线程都有一个独立的<code>ThreadLocal</code>变量副本，它们互不干扰。</p>
+<p>需要注意的是，每个线程都应该负责清理自己的<code>ThreadLocal</code>变量，否则可能会导致内存泄漏。可以在使用完<code>ThreadLocal</code>变量之后，调用<code>remove()</code>方法进行清理。另外，线程池中的线程复用可能会导致<code>ThreadLocal</code>变量的值错乱，因此在使用线程池时需要特别小心。</p>
+<h1 id="ThreadLocal的原理"><a href="#ThreadLocal的原理" class="headerlink" title="ThreadLocal的原理"></a>ThreadLocal的原理</h1><p>1：<strong>每个Thread里面都有一个ThreadLocalMap对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Thread.java:</span><br><span class="line"></span><br><span class="line">    ThreadLocal.<span class="type">ThreadLocalMap</span> <span class="variable">inheritableThreadLocals</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里可以理解成map一样的hash表接口：<strong>key为ThreadLocal，value为线程本地变量具体的值</strong></p>
+<p>因为一个线程请求，里面可以使用多个ThreadLocal，所以要使用Hash结构，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">@SneakyThrows</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">    //定义2个ThreadLocal ,每个线程都使用者两个ThreadLocal存储不同的线程本地变量</span><br><span class="line">    ThreadLocal&lt;Integer&gt; threadLocal1 = new ThreadLocal&lt;&gt;();</span><br><span class="line">    ThreadLocal&lt;String&gt; threadLocal2 = new ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">    线程1</span><br><span class="line">     */</span><br><span class="line">    new Thread(() -&gt; &#123;</span><br><span class="line">      threadLocal1.set(10);</span><br><span class="line">      threadLocal2.set(&quot;张三&quot;);</span><br><span class="line"></span><br><span class="line">      //模拟 线程其他业务逻辑,花费5秒</span><br><span class="line">      try &#123;</span><br><span class="line">        TimeUnit.SECONDS.sleep(5);</span><br><span class="line">      &#125; catch (InterruptedException e) &#123;</span><br><span class="line">        throw new RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Integer integer = threadLocal1.get();</span><br><span class="line">      String string = threadLocal2.get();</span><br><span class="line">      System.out.println(Thread.currentThread().getName() + &quot; 拿到的值为：&quot; + integer + &quot; 和 &quot; + string);</span><br><span class="line"></span><br><span class="line">      threadLocal1.remove();</span><br><span class="line">      threadLocal2.remove();</span><br><span class="line"></span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">    线程2</span><br><span class="line">     */</span><br><span class="line">    new Thread(() -&gt; &#123;</span><br><span class="line">      threadLocal1.set(20);</span><br><span class="line">      threadLocal2.set(&quot;李四&quot;);</span><br><span class="line"></span><br><span class="line">      //模拟 线程其他业务逻辑,花费5秒</span><br><span class="line">      try &#123;</span><br><span class="line">        TimeUnit.SECONDS.sleep(5);</span><br><span class="line">      &#125; catch (InterruptedException e) &#123;</span><br><span class="line">        throw new RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Integer integer = threadLocal1.get();</span><br><span class="line">      String string = threadLocal2.get();</span><br><span class="line">      System.out.println(Thread.currentThread().getName() + &quot; 拿到的值为：&quot; + integer + &quot; 和 &quot; + string);</span><br><span class="line"></span><br><span class="line">      threadLocal1.remove();</span><br><span class="line">      threadLocal2.remove();</span><br><span class="line"></span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    System.in.read();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">————————————————————————————————————————————————————————————</span><br><span class="line">————————————————————————————————————————————————————————————</span><br><span class="line">//执行结果：</span><br><span class="line">Thread-1 拿到的值为：20 和 李四</span><br><span class="line">Thread-0 拿到的值为：10 和 张三</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>2：ThreadLocalMap实现原理</strong></p>
+<p>ThreadLocalMap和HashMap的实现原理非常相似。它们都是哈希结构，将key和value组合成对象，然后使用数组存储对象。</p>
+<p>ThreadLocalMap使用<strong>ThreadLocal作为key，以存储线程本地变量的值作为value</strong>，以确保线程安全。</p>
+<p>这里定义成对象格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">static class ThreadLocalMap &#123;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * The entries in this hash map extend WeakReference, using</span><br><span class="line">         * its main ref field as the key (which is always a</span><br><span class="line">         * ThreadLocal object).  Note that null keys (i.e. entry.get()</span><br><span class="line">         * == null) mean that the key is no longer referenced, so the</span><br><span class="line">         * entry can be expunged from table.  Such entries are referred to</span><br><span class="line">         * as &quot;stale entries&quot; in the code that follows.</span><br><span class="line">         */</span><br><span class="line">        static class Entry extends WeakReference&lt;ThreadLocal&lt;?&gt;&gt; &#123;</span><br><span class="line">            /** The value associated with this ThreadLocal. */</span><br><span class="line">            Object value;</span><br><span class="line"></span><br><span class="line">            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">                super(k);</span><br><span class="line">                value = v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">...其他代码...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ThreadLocal中的set()、get()和remove()方法本质上就是在数组中添加、查找和删除数组节点。（有关详细信息，请参阅源代码，此处不再赘述。）</p>
+<h1 id="ThreadLocal内存泄露问题"><a href="#ThreadLocal内存泄露问题" class="headerlink" title="ThreadLocal内存泄露问题"></a>ThreadLocal内存泄露问题</h1><p><strong>代码介绍：</strong></p>
+<p>请看上面的图片，Entry对象是从<code>WeakReference&lt;ThreadLocal&lt;?&gt;&gt;</code>继承而来的。Entry的构造方法接受一个参数<code>ThreadLocal&lt;?&gt; k</code>，然后将其放入了<code>super(k)</code>中。</p>
+<p>此时，这里传入的<code>k</code>（即<code>ThreadLocal</code>）实际上是一个弱引用对象。为了代码简洁，才使用Entry继承了<code>WeakReference</code>。</p>
+<p>实际上，也可以不用Entry对象继承<code>WeakReference</code>。在构造Entry对象时，可以传入<code>WeakReference&lt;ThreadLocal&lt;?&gt;&gt; k</code>。这样做的主要目的是为了代码简洁，以及在后面获取threadLocal时显得简洁。</p>
+<p><strong>强弱软虚：</strong></p>
+<p>上面的<code>WeakReference</code> 就是弱引用，我们稍微回顾以下java里面的强弱软虚引用说明：</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>强引用（Strong Reference）</strong>：普通的对象引用，只要强引用还存在，垃圾收集器就不会回收被引用的对象。</p>
+<ul>
+<li><strong>弱引用（Weak Reference）</strong>：通过 <strong><code>WeakReference</code></strong> 类实现，被弱引用指向的对象在垃圾收集器运行时，如果没有强引用关联，无论内存是否足够，都会被回收。</li>
+<li><strong>软引用（Soft Reference）</strong>：通过 <strong><code>SoftReference</code></strong> 类实现，被软引用指向的对象在内存不足时才会被垃圾收集器回收，通常用于实现内存敏感的缓存。</li>
+<li><strong>虚引用（Phantom Reference）</strong>：通过 <strong><code>PhantomReference</code></strong> 类实现，被虚引用关联的对象在被垃圾收集器回收时可以收到一个系统通知，主要用于跟踪对象被垃圾收集器回收的活动，不能单独使用它们来获取对象。</li>
+</ul>
+<p><strong>问题：</strong></p>
+<p>1：上面说到ThreadLocal其实是个弱引用对象，只要jvm发生了gc，并且没有强引用关联（<em><strong>即线程任务的下文不会用到该threadLocal的引用</strong></em>），那么这个threadlocal会被清理。</p>
+<p>2：回到线程部分，这个时候线程还得继续执行，线程任务并没有销毁，线程没有dead，所以Thread里面的ThrealocalMap就不会销毁，因为ThrealocalMap被Thread强引用。</p>
+<p>3：因为ThrealocalMap没有被销毁，所以Entry没有被销毁，因为Entry被ThrealocalMap强引用。</p>
+<p>4：因为Entry没有被销毁，所以Entry里面的value就没有被销毁，因为value被entry强引用。</p>
+<p>但是问题来了。entry里面的ThreadLocal已经被销毁了，已经为空了。但是里面的value依然存在，这里就造成了内存泄露问题。</p>
+<p><strong>解决方案：</strong></p>
+<p><strong>手动调用ThreadLocal的remove方法，使得Entry里面的value被销毁（这里注意，remove只会销毁value，并不会销毁Threadlocal，详情请自行查看源码）， 那么等到下次gc时候，value对应的ThreadLocal也会被销毁， 那么整个entry对象就被销毁了。</strong></p>
+<p>所以在每次使用完ThreadLocal之后，请<strong>一定</strong>手动调用remove方法</p>
+<h1 id="ThreadLocal-hash冲突问题"><a href="#ThreadLocal-hash冲突问题" class="headerlink" title="ThreadLocal hash冲突问题"></a>ThreadLocal hash冲突问题</h1><p>虽然ThreadLocal的使用简单，但是它也有一些问题，其中一个是Hash冲突问题。</p>
+<p>在ThreadLocalMap中，ThreadLocal对象是作为key来使用的。ThreadLocalMap使用ThreadLocal对象的hashCode作为散列值，然后根据散列值存储该对象的值。如果两个ThreadLocal对象的hashCode相同，那么它们会被存储在同一个散列桶中，这就会引起冲突。</p>
+<p>当发生冲突时，ThreadLocalMap会采用线性探测法（Linear Probing）。线性探测法指的是当一个散列值被占用时，就顺序往下一个位置探测，直到找到一个空位。具体来说，就是线性探测法会不断查找下一个位置，直到找到一个空闲的位置为止，然后将该键值对存储到该位置上，这就是线性探测法的核心思想。</p>
+<p>如果线性探测法查找到一个空闲位置时，发现该位置之前的位置都已经被其他ThreadLocal对象占用了，那么它就会继续往下探测，直到找到一个空闲位置为止。由于线性探测法只查找一个位置，因此它可能会导致Hash冲突问题。当ThreadLocalMap中的元素数量较多时，这种情况会变得更加严重。</p>
+<p>为了避免Hash冲突问题，可以采用以下方法：</p>
+<ul>
+<li>尽量避免使用相同的hashCode，可以通过重写ThreadLocal的hashCode方法来实现。</li>
+<li>将ThreadLocal作为静态变量使用，这样可以避免创建多个ThreadLocal实例。</li>
+</ul>
+<p>另外，需要注意的是，由于线性探测法的存在，ThreadLocalMap的容量不能太大。如果容量过大，那么线性探测法会花费较长的时间来查找空闲位置，这会影响并发性能。</p>
+<h1 id="异步线程中使用ThreadLocal的注意事项"><a href="#异步线程中使用ThreadLocal的注意事项" class="headerlink" title="异步线程中使用ThreadLocal的注意事项"></a>异步线程中使用ThreadLocal的注意事项</h1><p>如果在异步线程中使用ThreadLocal，需要注意以下几点：</p>
+<ol>
+<li>由于异步线程可能会在主线程执行完毕之后才开始执行，因此需要在主线程中将ThreadLocal变量的值设置为默认值，以确保在异步线程中可以正常使用。</li>
+<li>异步线程中可能会使用线程池，而线程池中的线程是可以被复用的。如果在异步线程中没有手动清理ThreadLocal变量，那么可能会导致线程之间的数据混乱。</li>
+<li>如果异步线程中使用的是同一个ThreadLocal变量，那么需要在使用完毕之后手动调用<code>remove()</code>方法，以确保下一次使用之前已经清理干净。</li>
+<li>如果异步线程中需要使用多个ThreadLocal变量，那么需要使用<code>ThreadLocal</code>容器来管理这些变量，以确保线程之间不会互相干扰。例如：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadLocalContainer &#123;</span><br><span class="line">    private static ThreadLocal&lt;Integer&gt; intThreadLocal = new ThreadLocal&lt;&gt;();</span><br><span class="line">    private static ThreadLocal&lt;String&gt; stringThreadLocal = new ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public static void setInt(int value) &#123;</span><br><span class="line">        intThreadLocal.set(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int getInt() &#123;</span><br><span class="line">        return intThreadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void setString(String value) &#123;</span><br><span class="line">        stringThreadLocal.set(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String getString() &#123;</span><br><span class="line">        return stringThreadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void clearAll() &#123;</span><br><span class="line">        intThreadLocal.remove();</span><br><span class="line">        stringThreadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用以上代码来管理ThreadLocal变量，可以确保线程之间不会发生数据干扰。</p>
+<h2 id="为什么threadlocal不能使用强引用"><a href="#为什么threadlocal不能使用强引用" class="headerlink" title="为什么threadlocal不能使用强引用"></a><strong>为什么threadlocal不能使用强引用</strong></h2><p>ThreadLocal不能使用强引用的原因是为了避免内存泄漏。</p>
+<p>具体原因如下：</p>
+<ul>
+<li><strong>内存泄漏风险</strong>：如果ThreadLocal使用强引用，ThreadLocal对象及其关联的值会一直存在于线程的内存空间中，直到线程结束。对于线程池中的线程，这意味着这些对象会一直保留在内存中，导致内存泄漏，因为线程池中的线程通常是长期存活的。</li>
+<li><strong>弱引用机制</strong>：ThreadLocal内部使用了弱引用来引用线程局部变量（ThreadLocalMap的键是ThreadLocal对象的弱引用）。这样，当ThreadLocal对象不再被外部强引用时，可以被垃圾回收，从而避免内存泄漏。即使ThreadLocal对象被回收，关联的值也会通过ThreadLocalMap的清理机制进行处理，防止内存泄漏。</li>
+</ul>
+<p>总结：<br>ThreadLocal不能使用强引用是为了避免在使用线程池的场景下，由于ThreadLocal对象无法及时回收而导致的内存泄漏。通过使用弱引用，可以确保不再使用的ThreadLocal对象及其值能够被垃圾回收。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/12/05/ThreadLocal%E5%85%B3%E9%94%AE%E5%AD%97/" data-id="cm4b3zwrq0000kmo81fwg1f9r" data-title="ThreadLocal关键字" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          mac关闭zerotier
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/05/centos%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">centos文件权限</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/centos/">centos</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mac/zerotier/">zerotier</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/" rel="tag">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zerotier/" rel="tag">zerotier</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/zerotier/" style="font-size: 10px;">zerotier</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/">mac关闭zerotier</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/ThreadLocal%E5%85%B3%E9%94%AE%E5%AD%97/">ThreadLocal关键字</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/centos%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">centos文件权限</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/java%E5%86%85%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">java内置观察者模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 neoooo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>java内置观察者模式 | neoooo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="java内置观察者模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java内置观察者模式">
+<meta property="og:url" content="http://example.com/2024/12/05/java%E5%86%85%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="neoooo">
+<meta property="og:description" content="java内置观察者模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-05T09:21:50.833Z">
+<meta property="article:author" content="neoooo">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="neoooo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">neoooo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-java内置观察者模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/java%E5%86%85%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T16:00:00.000Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      java内置观察者模式
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>java内置观察者模式</p>
+<span id="more"></span>
+
+<ul>
+<li>观察者模式介绍</li>
+<li>观察者模式UML</li>
+<li>观察者模式的设计原则</li>
+<li>观察者模式-java内置实现</li>
+<li>观察者模式-google实现</li>
+<li>观察则模式-手写demo</li>
+<li>观察者模式使用场景</li>
+</ul>
+<hr>
+<h2 id="观察者模式介绍"><a href="#观察者模式介绍" class="headerlink" title="观察者模式介绍"></a>观察者模式介绍</h2><p>观察者模式是一种常用的设计模式，它定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。当主题对象状态发生改变时，所有依赖于它的观察者对象都会得到通知并且自动更新。（观察者模式又叫做发布订阅模式）</p>
+<p>观察者模式的核心思想是解耦，它将观察者和主题解耦，让它们之间的依赖变得松散。在观察者模式中，主题只知道观察者的存在，并不知道观察者的具体实现。当主题状态发生改变时，它只需要通知观察者即可，而不需要关心观察者的具体实现。</p>
+<hr>
+<h2 id="观察者模式UML"><a href="#观察者模式UML" class="headerlink" title="观察者模式UML"></a>观察者模式UML</h2><p>观察者模式的UML图如下所示：</p>
+<p>!<a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Observer.svg/854px-Observer.svg.png">https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Observer.svg/854px-Observer.svg.png</a></p>
+<hr>
+<h2 id="观察者模式的设计原则"><a href="#观察者模式的设计原则" class="headerlink" title="观察者模式的设计原则"></a>观察者模式的设计原则</h2><p>观察者模式满足的设计原则包括：开闭原则、单一职责原则、依赖倒置原则。其中，开闭原则指的是观察者模式允许增加观察者类而无需修改主题类代码，从而符合开闭原则；单一职责原则指的是主题类只负责管理观察者，不涉及具体业务逻辑，符合单一职责原则；依赖倒置原则指的是主题类和观察者类都依赖于抽象，符合依赖倒置原则。</p>
+<hr>
+<h2 id="观察者模式-java内置实现"><a href="#观察者模式-java内置实现" class="headerlink" title="观察者模式-java内置实现"></a>观察者模式-java内置实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Observable;</span><br><span class="line">import java.util.Observer;</span><br><span class="line"></span><br><span class="line">public class ObserverPatternDemo &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Subject subject = new Subject();</span><br><span class="line">        new BinaryObserver(subject);</span><br><span class="line">        new OctalObserver(subject);</span><br><span class="line">        new HexaObserver(subject);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;First state change: 15&quot;);</span><br><span class="line">        subject.setState(15);</span><br><span class="line">        System.out.println(&quot;Second state change: 10&quot;);</span><br><span class="line">        subject.setState(10);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Subject extends Observable &#123;</span><br><span class="line">    private int state;</span><br><span class="line"></span><br><span class="line">    public int getState() &#123;</span><br><span class="line">        return state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setState(int state) &#123;</span><br><span class="line">        this.state = state;</span><br><span class="line">        setChanged();</span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BinaryObserver implements Observer &#123;</span><br><span class="line">    public BinaryObserver(Subject subject) &#123;</span><br><span class="line">        subject.addObserver(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(Observable o, Object arg) &#123;</span><br><span class="line">        System.out.println(&quot;Binary String: &quot; + Integer.toBinaryString(((Subject) o).getState()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class OctalObserver implements Observer &#123;</span><br><span class="line">    public OctalObserver(Subject subject) &#123;</span><br><span class="line">        subject.addObserver(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(Observable o, Object arg) &#123;</span><br><span class="line">        System.out.println(&quot;Octal String: &quot; + Integer.toOctalString(((Subject) o).getState()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HexaObserver implements Observer &#123;</span><br><span class="line">    public HexaObserver(Subject subject) &#123;</span><br><span class="line">        subject.addObserver(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(Observable o, Object arg) &#123;</span><br><span class="line">        System.out.println(&quot;Hex String: &quot; + Integer.toHexString(((Subject) o).getState()).toUpperCase());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上代码演示了如何在Java使用内置的观察者模式。在这个例子中，我们创建了一个Subject类，它继承了Java内置的Observable类，并且在Subject类中定义了一个状态state。当Subject类的状态发生改变时，会调用setChanged()方法和notifyObservers()方法来通知观察者。BinaryObserver、OctalObserver和HexaObserver是观察者类，它们在构造函数中注册到Subject类中。当Subject类的状态发生改变时，它们会接收到通知并且自动更新。</p>
+<hr>
+<h2 id="观察者模式-Google-Guava实现"><a href="#观察者模式-Google-Guava实现" class="headerlink" title="观察者模式-Google Guava实现"></a>观察者模式-Google Guava实现</h2><p>观察者模式-google实现</p>
+<p>Google Guava库提供了观察者模式的实现，我们可以使用它来简化观察者模式的使用。</p>
+<p>观察者模式在Google Guava库中被称为事件总线(EventBus)，它提供了一个事件总线(EventBus)类，我们可以使用它来实现观察者模式。</p>
+<p>下面是一个使用Google Guava库实现观察者模式的例子：</p>
+<p>首先，我们需要引入Google Guava库的依赖：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.google.guava&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;guava&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;28.2-jre&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后，我们需要定义一个事件类(即主题类)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class OrderEvent &#123;</span><br><span class="line">    private String orderId;</span><br><span class="line"></span><br><span class="line">    public OrderEvent(String orderId) &#123;</span><br><span class="line">        this.orderId = orderId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getOrderId() &#123;</span><br><span class="line">        return orderId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接着，我们需要定义一个观察者类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class OrderObserver &#123;</span><br><span class="line">    @Subscribe</span><br><span class="line">    public void handleOrderEvent(OrderEvent event) &#123;</span><br><span class="line">        System.out.println(&quot;Received order event, order id: &quot; + event.getOrderId());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个观察者类中，我们使用了@Subscribe注解来标记handleOrderEvent()方法，表示这个方法是用来处理事件的。</p>
+<p>最后，我们需要在我们的应用程序中创建一个事件总线(EventBus)对象，并且将观察者注册到事件总线上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class App &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        EventBus eventBus = new EventBus();</span><br><span class="line">        OrderObserver orderObserver = new OrderObserver();</span><br><span class="line">        eventBus.register(orderObserver);</span><br><span class="line">        eventBus.post(new OrderEvent(&quot;1234567890&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个应用程序中，我们创建了一个事件总线(EventBus)对象，并且将观察者注册到事件总线上。然后，我们使用eventBus.post()方法来发布事件，这样就会触发观察者的处理方法。</p>
+<p>需要注意的是，我们还需要在观察者类中定义一个无参构造函数，否则Google Guava库无法正确地实例化观察者对象。</p>
+<p>总的来说，使用Google Guava库可以让我们更加方便地实现观察者模式，从而帮助我们简化代码，并且提高开发效率。</p>
+<hr>
+<h2 id="观察者模式-手写demo"><a href="#观察者模式-手写demo" class="headerlink" title="观察者模式-手写demo"></a>观察者模式-手写demo</h2><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">interface Observer &#123;</span><br><span class="line">    void update(int state);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Subject &#123;</span><br><span class="line">    private int state;</span><br><span class="line">    private List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public int getState() &#123;</span><br><span class="line">        return state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setState(int state) &#123;</span><br><span class="line">        this.state = state;</span><br><span class="line">        notifyAllObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void attach(Observer observer) &#123;</span><br><span class="line">        observers.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void notifyAllObservers() &#123;</span><br><span class="line">        for (Observer observer : observers) &#123;</span><br><span class="line">            observer.update(state);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BinaryObserver implements Observer &#123;</span><br><span class="line">    public BinaryObserver(Subject subject) &#123;</span><br><span class="line">        subject.attach(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(int state) &#123;</span><br><span class="line">        System.out.println(&quot;Binary String: &quot; + Integer.toBinaryString(state));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class OctalObserver implements Observer &#123;</span><br><span class="line">    public OctalObserver(Subject subject) &#123;</span><br><span class="line">        subject.attach(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(int state) &#123;</span><br><span class="line">        System.out.println(&quot;Octal String: &quot; + Integer.toOctalString(state));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HexaObserver implements Observer &#123;</span><br><span class="line">    public HexaObserver(Subject subject) &#123;</span><br><span class="line">        subject.attach(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void update(int state) &#123;</span><br><span class="line">        System.out.println(&quot;Hex String: &quot; + Integer.toHexString(state).toUpperCase());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ObserverPatternDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Subject subject = new Subject();</span><br><span class="line">        new BinaryObserver(subject);</span><br><span class="line">        new OctalObserver(subject);</span><br><span class="line">        new HexaObserver(subject);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;First state change: 15&quot;);</span><br><span class="line">        subject.setState(15);</span><br><span class="line">        System.out.println(&quot;Second state change: 10&quot;);</span><br><span class="line">        subject.setState(10);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="手写demo说明"><a href="#手写demo说明" class="headerlink" title="手写demo说明"></a>手写demo说明</h2><p>手写demo实现了一个观察者模式的例子，其中包括了Subject主题类和Observer观察者接口，以及BinaryObserver、OctalObserver和HexaObserver三个观察者类。当Subject类的状态发生改变时，会调用notifyAllObservers()方法来通知观察者，而观察者类则会接收到通知并且自动更新。</p>
+<hr>
+<h2 id="观察者模式使用场景"><a href="#观察者模式使用场景" class="headerlink" title="观察者模式使用场景"></a>观察者模式使用场景</h2><p>观察者模式的使用场景包括：</p>
+<ul>
+<li>当一个对象的改变需要同时改变其他对象时</li>
+<li>当一个对象的改变需要通知其他对象时</li>
+<li>当一个对象的改变需要通知一组对象时</li>
+</ul>
+<p>比如，当我们需要在一个系统中实现事件处理机制时，就可以使用观察者模式。在这个系统中，事件源是主题，它负责产生事件并且通知所有的观察者；观察者则负责接收事件并且进行处理。</p>
+<p>另外，观察者模式还常用于GUI开发、消息系统等领域中。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>观察者模式是一种常用的设计模式，它允许多个观察者对象同时监听某一个主题对象，并且当主题对象状态发生改变时，所有依赖于它的观察者对象都会得到通知并且自动更新。在Java中，观察者模式已经被内置实现，可以很方便地使用。同时，我们也可以手写实现观察者模式，以便更好地理解其原理和应用。观察者模式的使用场景包括：当一个对象的改变需要同时改变其他对象时、当一个对象的改变需要通知其他对象时、当一个对象的改变需要通知一组对象时。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/12/05/java%E5%86%85%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" data-id="cm4b3zwrw0004kmo80170cyh2" data-title="java内置观察者模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/05/centos%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          centos文件权限
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/centos/">centos</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mac/zerotier/">zerotier</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/" rel="tag">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zerotier/" rel="tag">zerotier</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/zerotier/" style="font-size: 10px;">zerotier</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/">mac关闭zerotier</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/ThreadLocal%E5%85%B3%E9%94%AE%E5%AD%97/">ThreadLocal关键字</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/centos%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">centos文件权限</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/java%E5%86%85%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">java内置观察者模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 neoooo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
