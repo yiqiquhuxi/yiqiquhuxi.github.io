@@ -120,6 +120,75 @@
 
 
   
+    <article id="post-mac关闭zerotier" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T16:00:00.000Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mac/">mac</a>►<a class="article-category-link" href="/categories/mac/zerotier/">zerotier</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/">mac关闭zerotier</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>要在 Mac 电脑上关闭 ZeroTier-One，可以按照以下步骤进行：</p>
+<ol>
+<li><strong>通过菜单栏图标</strong>：<ul>
+<li>在 Mac 的菜单栏中找到 ZeroTier 的图标（通常是一个圆形的图标）。</li>
+<li>点击该图标，然后选择 <code>Quit ZeroTier</code> 以关闭 ZeroTier-One。</li>
+</ul>
+</li>
+<li><strong>使用终端命令</strong>：<ul>
+<li><p>打开终端（Terminal）。</p>
+</li>
+<li><p>输入以下命令并按下回车键：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> launchctl unload /Library/LaunchDaemons/com.zerotier.one.plist</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>该命令会停止 ZeroTier-One 的服务。</p>
+</li>
+</ul>
+</li>
+<li><strong>强制退出应用程序</strong>：<ul>
+<li>如果你无法通过以上方法关闭 ZeroTier-One，你可以尝试使用 <code>强制退出</code> 功能。</li>
+<li>按下 <code>Command + Option + Esc</code> 打开强制退出应用程序窗口。</li>
+<li>在列表中选择 ZeroTier-One，然后点击 <code>强制退出</code>。</li>
+</ul>
+</li>
+</ol>
+<p>通过以上方法，你应该能够成功关闭 ZeroTier-One。如果你以后需要重新启动 ZeroTier-One，可以通过菜单栏图标再次启动或通过终端使用相应的启动命令。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/" data-id="cm4b1n1v90000nno8byl92qww" data-title="mac关闭zerotier" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zerotier/" rel="tag">zerotier</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
 
 
 </section>
@@ -127,12 +196,33 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mac/zerotier/">zerotier</a></li></ul></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zerotier/" rel="tag">zerotier</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/zerotier/" style="font-size: 10px;">zerotier</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -152,6 +242,10 @@
         
           <li>
             <a href="/2024/12/05/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/mac%E5%85%B3%E9%97%ADzerotier/">mac关闭zerotier</a>
           </li>
         
       </ul>
